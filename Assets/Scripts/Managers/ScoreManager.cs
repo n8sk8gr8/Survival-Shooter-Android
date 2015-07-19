@@ -8,17 +8,20 @@ public class ScoreManager : MonoBehaviour
 
 
     Text scoreText;
+	float survivalTime;
 
 
     void Awake ()
     {
         scoreText = GetComponent <Text> ();
         score = 0;
+		survivalTime = 0;
     }
 
 
     void Update ()
     {
-        scoreText.text = "Score: " + score;
+		survivalTime += Time.deltaTime;
+        scoreText.text = "Score: " + (int)(score + survivalTime);
     }
 }
