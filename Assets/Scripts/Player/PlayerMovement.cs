@@ -3,7 +3,7 @@
 public class PlayerMovement : MonoBehaviour
 {
     // Public Variables 
-	public float speed = 6f;
+	public float speed = 10;
 
 	// Private Variables
 	Vector3 movement;
@@ -22,9 +22,8 @@ public class PlayerMovement : MonoBehaviour
 	// FixedUpdate is called every 50th of a second
 	void FixedUpdate()
 	{
-		float h = Input.GetAxisRaw("Horizontal");
-		float v = Input.GetAxisRaw("Vertical");
-
+		float v = Input.acceleration.y;
+		float h = Input.acceleration.x;
 		Move (h, v);
 		Turning ();
 		Animating (h, v);
@@ -32,9 +31,10 @@ public class PlayerMovement : MonoBehaviour
 
 	void Move(float h, float v)
 	{
+		Vector3 movement = Vector3.zero;
 		movement.Set (h, 0f, v);
 		movement = movement.normalized * speed * Time.deltaTime;
-		playerRigidbody.MovePosition (transform.position + movement);
+		playerRigidbody.MovePosition(transform.position + movement);
 	}
 
 	void Turning()
