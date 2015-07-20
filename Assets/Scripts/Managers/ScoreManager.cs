@@ -9,11 +9,16 @@ public class ScoreManager : MonoBehaviour
 
     Text scoreText;
 	float survivalTime;
+	GameObject player;
+	PlayerHealth playerHealth;
 
 
     void Awake ()
     {
         scoreText = GetComponent <Text> ();
+		player = GameObject.FindGameObjectWithTag ("Player");
+		playerHealth = player.GetComponent<PlayerHealth> ();
+
         score = 0;
 		survivalTime = 0;
     }
@@ -21,7 +26,10 @@ public class ScoreManager : MonoBehaviour
 
     void Update ()
     {
-		survivalTime += Time.deltaTime;
+		if(playerHealth.currentHealth > 0)
+		{
+			survivalTime += Time.deltaTime;
+		}
         scoreText.text = "Score: " + (int)(score + survivalTime);
     }
 }
